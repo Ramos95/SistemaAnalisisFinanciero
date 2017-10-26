@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idEmpresa" />
+            <f:viewParam name="idEstadoFinanciero" />
+        </f:metadata>
+        <h:form id="formIndicadores">
+            <h1 style="text-align: center"><p:outputLabel value="ESTADOS FINANCIEROS"/></h1>
+            <p:separator />
+            <br/>
+            <h:panelGrid columns="2" style="margin: 0 auto">
+                <p:button value="Nuevo" outcome="agregar_estado_financiero.jsf" />
+                <h:commandButton value="Editar" action="#{controllerEstadoFinanciero.parametros(1)}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;" />
+            </h:panelGrid>
+            <br/>
+
+            <p:dataTable value="#{controllerEstadoFinanciero.lstEstadoFinanciero}"
+                         var="ef" 
+                         id="tblEstadoFinanciero"
+                         paginator="true"
+                         selection="#{controllerEstadoFinanciero.registro}"
+                         selectionMode="single"
+                         lazy="true"
+                         rows="7"
+                         rowKey="#{ef.estadoFinancieroPK}">
+                <p:column headerText="Año" width="10%">
+                    <h:outputText value="#{ef.fechaDesde}">
+                        <f:convertDateTime pattern="yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Nombre de la Empresa" >
+                    <h:outputText value="#{ef.empresa.nombreCorto}" />
+                </p:column>
+                <p:column headerText="Tipo de estado financiero">
+                    <h:outputText value="ESTADO DE RESULTADOS / BALANCE GENERAL" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

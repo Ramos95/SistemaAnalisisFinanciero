@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/myStyle.css"/>
+        <h:outputStylesheet name="./css/sidenav.css"/>
+        <style>               
+            .Bimage{background-image:url("background.png"); background-attachment: fixed; background-size: 100%;}        
+        </style> 
+        <title>Sistema Finaciero</title>
+    </h:head>
+
+    <h:body class="Bimage" style="margin: -5px;">
+
+        <!--h:form>
+            <h:panelGrid  style="width: 100%;">
+                <p:tabMenu activeIndex="">
+                    <p:menuitem value="Cuentas" outcome="cuentas.jsf">
+                    </p:menuitem>
+                    <p:menuitem value="Empresas" outcome="empresas.jsf">
+                    </p:menuitem>
+                    <p:menuitem value="Estados Financieros" outcome="estado_financiero.jsf">
+                    </p:menuitem>
+                    <p:menuitem value="Indicadores" outcome="indicadores.jsf">
+                    </p:menuitem>
+                </p:tabMenu>
+            </h:panelGrid>
+        </h:form-->
+
+        <div id="sidenav">
+            <ui:insert name="sidenav">
+                <div class="sidenav">
+                    <a href="cuentas.jsf" title="Cuentas">
+                        <h:graphicImage class="icon" name="./img/notebook-5.png" alt="house" height="32" width="32"/>
+                        Cuentas
+                    </a>
+                    <a href="empresas.jsf" title="Empresas">
+                        <h:graphicImage class="icon" name="./img/id-card-3.png" alt="id-card" height="32" width="32"/>
+                        Empresas
+                    </a>
+                    <a href="estado_financiero.jsf" title="Estados Finacieros">
+                        <h:graphicImage class="icon" name="./img/notebook-4.png" alt="notebook" height="32" width="32"/>
+                        Estados Financieros
+                    </a>
+                    <a href="indicadores.jsf" title="Indicadores">
+                        <h:graphicImage class="icon" name="./img/files-12.png" alt="files" height="32" width="32"/>
+                        Indicadores
+                    </a>
+                    <a href="info_indicadores.jsf" title="Definiciones Indicadores">
+                        <h:graphicImage class="icon" name="./img/note.png" alt="note" height="32" width="32"/>
+                        Información
+                    </a>
+                    <br/>
+                    <a title="Acerca de" onclick="PF('dialogAcercaDe').show();">
+                        <h:graphicImage class="icon" name="./img/info.png" alt="info" height="32" width="32"/>
+                        Acerca de
+                    </a> 
+                </div>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="content" style="padding: 20px;">
+            <ui:insert name="content"></ui:insert>
+        </div>
+
+        <p:dialog header="Acerca de" widgetVar="dialogAcercaDe" modal="true" height="190" width="300" resizable="false" draggable="false" closeOnEscape="true">
+            <div style="padding-left: 20px;">
+            <p:outputLabel value="Realizado Por:"/>
+            <h:panelGrid columns="2">
+                <h:graphicImage class="icon" name="./img/users.png" alt="users" height="32" width="32" style="padding-right: 20px;"/>
+                <h:panelGrid>
+                    <p:outputLabel value="Erick Guirola"/>
+                    <p:outputLabel value="Francisco Morales"/>
+                    <p:outputLabel value="Rodolfo Olmos"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid columns="2">
+                <h:graphicImage class="icon" name="./img/point-of-service.png" alt="pos" height="32" width="32" style="padding-right: 20px;"/>
+                <p:outputLabel value="Análisis Finaciero 2016"/>
+            </h:panelGrid>
+            </div>
+        </p:dialog>  
+
+        <!--script type="text/javascript" src="./jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/sidenav.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.sidenav').hover(
+                        function () {
+                            $(this).css({"width": "280px"});
+                        },
+                        function () {
+                            $(this).css({"width": "1px"});
+                        }
+                );
+            });
+        </script-->
+    </h:body>
+
+</html>

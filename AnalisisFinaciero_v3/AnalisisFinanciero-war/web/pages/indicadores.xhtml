@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h1 style="text-align: center"><p:outputLabel value="INDICADORES FINANCIEROS"/></h1>
+        <p:separator />
+        <br/>
+        <h:form>
+            <h:panelGrid columns="2" style="margin: 0 auto">
+                <p:outputLabel value="Empresa: "/>
+                <p:selectOneMenu value="#{controllerIndicadores.idEmpresa}">
+                    <f:selectItems value="#{controllerIndicadores.lstEmpresas}" var="r" itemValue="#{r.idEmpresa}" itemLabel="#{r.nombreCorto}"/>
+                    <p:ajax listener="#{controllerIndicadores.llenarListasFechas()}" update=":tabs:formFecha:panelFecha :tabs:formFechas"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+        <br/>
+        <p:tabView id="tabs" activeIndex="0" dynamic="true" style="background-color: transparent;">                   
+            <p:tab id="tabIndicadores" title="Indicadores Financieros">
+                <h:form id="formFecha">
+                    <h:panelGrid id="panelFecha" columns="2" style="margin: 0 auto;">
+                        <p:outputLabel value="Año: " class="padding10"/>
+                        <p:selectOneMenu value="#{controllerIndicadores.anio}" >
+                            <f:selectItems value="#{controllerIndicadores.lstAnios}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <br/>
+                    <p:accordionPanel activeIndex=""> 
+                        <p:tab title="Liquidez" >
+                            <p:panel visible="#{controllerIndicadores.liquidezCorrienteVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.liquidezCorrienteSelected}"/>
+                                <h:outputText value=" Liquidez Corriente" class="padding2"/> 
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.pruebaAcidaVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.pruebaAcidaSelected}"/>
+                                <h:outputText value=" Prueba Ácida" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.capitalTrabajoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.capitalTrabajoSelected}"/>
+                                <h:outputText value=" Capital de Trabajo" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.nivelDependenciaInventarioVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.nivelDependenciaInventarioSelected}"/>
+                                <h:outputText value=" Nivel de Dependencia de Inventario" class="padding2"/>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Actividad">
+                            <p:panel visible="#{controllerIndicadores.numeroDiasCarteraManoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.numeroDiasCarteraManoSelected}"/>
+                                <h:outputText value=" Número de días Cartera a Mano" class="padding2"/>
+                            </p:panel>                                    
+                            <p:panel visible="#{controllerIndicadores.numeroDiasInventarioManoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.numeroDiasInventarioManoSelected}"/>
+                                <h:outputText value=" Número de días de Inventario a Mano" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.rotacionInventarioVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.rotacionInventarioSelected}"/>
+                                <h:outputText value=" Rotacion de Inventario" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.cicloOperativoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.cicloOperativoSelected}"/>
+                                <h:outputText value=" Ciclo Operativo" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.rotacionCarteraVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.rotacionCarteraSelected}"/>
+                                <h:outputText value=" Rotación de Cartera" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.rotacionActivoTotalVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.rotacionActivoTotalSelected}"/>
+                                <h:outputText value=" Rotación del Activo Total" class="padding2"/>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Endeudamiento">
+                            <p:panel visible="#{controllerIndicadores.endeudamientoSobreActivosTotalesVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.endeudamientoSobreActivosTotalesSelected}"/>
+                                <h:outputText value=" Endeudamiento sobre Activos Totales" class="padding2"/>
+                                <br/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.apalancamientoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.apalancamientoSelected}"/>
+                                <h:outputText value=" Apalancamiento" class="padding2"/>  
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Rentabilidad">
+                            <p:panel visible="#{controllerIndicadores.margenUtilidadNetaVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.margenUtilidadNetaSelected}"/>
+                                <h:outputText value=" Margen de Utilidad Neta" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.margenUtilidadBrutaVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.margenUtilidadBrutaSelected}"/>
+                                <h:outputText value=" Margen de Utilidad Bruta" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.margenUtilidadOperativaVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.margenUtilidadOperativaSelected}"/>
+                                <h:outputText value=" Margen de Utilidad Operativa" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.roiVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.roiSelected}"/>
+                                <h:outputText value=" ROI" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.roiOperativoVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.roiOperativoSelected}"/>
+                                <h:outputText value=" ROI Operativo" class="padding2"/>
+                            </p:panel>
+                            <p:panel visible="#{controllerIndicadores.roeVisible}">
+                                <p:selectBooleanCheckbox value="#{controllerIndicadores.roeSelected}"/>
+                                <h:outputText value=" ROE" class="padding2"/>
+                            </p:panel>
+                        </p:tab>
+                    </p:accordionPanel>
+                    <br/>
+                    <h:panelGrid style="margin: 0 auto;">
+                        <p:commandButton id="btnGenerarIndicadores" value="Generar" update=":tabs:formFecha :tabs:formDatos" icon="fa fa-line-chart"/>
+                    </h:panelGrid>
+                </h:form>
+                <br/>
+                <h:form id="formDatos">
+                    <p:panel id="panelLiquidez" header="LIQUIDEZ" toggleable="true" collapsed="true">
+                        <p:panel visible="#{controllerIndicadores.pruebaAcidaSelected?controllerIndicadores.pruebaAcidaVisible:false}">
+                            <h:outputText value="Prueba Ácida:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.pruebaAcida()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.liquidezCorrienteSelected?controllerIndicadores.liquidezCorrienteVisible:false}">
+                            <h:outputText value="Liquidez Corriente:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.liquidezCorriente()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.capitalTrabajoSelected?controllerIndicadores.capitalTrabajoVisible:false}">
+                            <h:outputText value="Capital de Trabajo:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.capitalTrabajo()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.nivelDependenciaInventarioSelected?controllerIndicadores.nivelDependenciaInventarioVisible:false}">
+                            <h:outputText value="Nivel de Dependencia de Inventario:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.nivelDependenciaInventario()}" readonly="true"/>
+                        </p:panel>
+                    </p:panel>
+                    <p:panel id="panelActividad" header="ACTIVIDAD" toggleable="true" collapsed="true">
+                        <p:panel visible="#{controllerIndicadores.numeroDiasCarteraManoSelected?controllerIndicadores.numeroDiasCarteraManoVisible:false}">
+                            <h:outputText value="Numero de Días Cartera a Mano:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.numeroDiasCarteraMano()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.numeroDiasInventarioManoSelected?controllerIndicadores.numeroDiasInventarioManoVisible:false}">
+                            <h:outputText value="Número de Días de Inventario a Mano:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.numeroDiasInventarioMano()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.rotacionInventarioSelected?controllerIndicadores.rotacionInventarioVisible:false}">
+                            <h:outputText value="Rotación de Inventario:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.rotacionInventario()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.cicloOperativoSelected?controllerIndicadores.cicloOperativoVisible:false}">
+                            <h:outputText value="Ciclo Operativo:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.cicloOperativo()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.rotacionCarteraSelected?controllerIndicadores.rotacionCarteraVisible:false}">
+                            <h:outputText value="Rotación de Cartera:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.rotacionCartera()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.rotacionActivoTotalSelected?controllerIndicadores.rotacionActivoTotalVisible:false}">
+                            <h:outputText value="Rotación del Activo Total:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.rotacionActivoTotal()}" readonly="true"/>
+                        </p:panel>
+                    </p:panel>
+                    <p:panel id="panelEndeudamiento" header="ENDEUDAMIENTO" toggleable="true" collapsed="true">
+                        <p:panel visible="#{controllerIndicadores.endeudamientoSobreActivosTotalesSelected?controllerIndicadores.endeudamientoSobreActivosTotalesVisible:false}">
+                            <h:outputText value="Endeudamiento Sobre Activos Totales:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.endeudamientoActivoTotal()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.apalancamientoSelected?controllerIndicadores.apalancamientoVisible:false}">
+                            <h:outputText value="Apalancamiento:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.endeudamientoLeverage()}" readonly="true"/>
+                        </p:panel>
+                    </p:panel>
+                    <p:panel id="panelRentabilidad" header="RENTABILIDAD" toggleable="true" collapsed="true">
+                        <p:panel visible="#{controllerIndicadores.margenUtilidadNetaSelected?controllerIndicadores.margenUtilidadNetaVisible:false}">
+                            <h:outputText value="Margen de Utilidad Neta:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.margenUtilidadNeta()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.margenUtilidadBrutaSelected?controllerIndicadores.margenUtilidadBrutaVisible:false}">
+                            <h:outputText value="Margen de Utilidad Bruta:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.margenUtilidadBruta()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.margenUtilidadOperativaSelected?controllerIndicadores.margenUtilidadOperativaVisible:false}">
+                            <h:outputText value="Margen de Utilidad Operativa:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.margenUtilidadOperativa()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.roiSelected?controllerIndicadores.roiVisible:false}">
+                            <h:outputText value="ROI:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.roi()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.roiOperativoSelected?controllerIndicadores.roiOperativoVisible:false}">
+                            <h:outputText value="ROI Operativo:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.roiOperativo()}" readonly="true"/>
+                        </p:panel>
+                        <p:panel visible="#{controllerIndicadores.roeSelected?controllerIndicadores.roeVisible:false}">
+                            <h:outputText value="ROE:" class="padding5"/>
+                            <p:inputText value="#{controllerIndicadores.roe()}" readonly="true"/>
+                        </p:panel>
+                    </p:panel>
+                </h:form>
+            </p:tab>
+
+
+            <p:tab id="tabFuentesUsos" title="Usos y Fuentes">
+                <h:form id="formFechas">
+                    <h:panelGrid id="panelFechas" style="margin: 0 auto;">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Año Uno: " class="padding10"></p:outputLabel>
+                            <p:selectOneMenu value="#{controllerIndicadores.anioInicio}" >
+                                <f:selectItems value="#{controllerIndicadores.lstAnios}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">   
+                            <p:outputLabel value="Año Dos: " class="padding10"></p:outputLabel>
+                            <p:selectOneMenu value="#{controllerIndicadores.anioFin}">
+                                <f:selectItems value="#{controllerIndicadores.lstAnios}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <br/>
+                        <h:panelGrid style="margin: 0 auto;">
+                            <p:commandButton id="btnGenerarFuentesUsos" onclick="#{controllerIndicadores.establecerFuentesUsos()}" value="Generar" update="@this :tabs:formFuentesUsos" icon="fa fa-line-chart"/> 
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+                <br/>
+                <h:form id="formFuentesUsos">
+                    <p:dataTable id="tblFuentesUsos"
+                                 value="#{controllerIndicadores.lstFuentesUsos}"
+                                 var="r" >
+                        <p:column headerText="Tipo" >
+                            <h:outputText value="#{r.cuenta.idCuentaMayor.idAgrupacion.idElementoFinanciero.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Cuenta" width="20%">
+                            <h:outputText value="#{r.cuenta.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Año #{controllerIndicadores.anioFin}" >
+                            <h:outputText value="#{r.saldoFecha2}"/>
+                        </p:column>
+                        <p:column headerText="Año #{controllerIndicadores.anioInicio}" >
+                            <h:outputText value="#{r.saldoFecha1}"/>
+                        </p:column>
+                        <p:column headerText="Diferencia" >
+                            <h:outputText value="#{r.diferencia}"/>
+                        </p:column>
+                        <p:column headerText="Fuente" >
+                            <h:outputText value="#{r.fuente}"/>
+                        </p:column>
+                        <p:column headerText="Uso" >
+                            <h:outputText value="#{r.uso}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h:panelGrid columns="4" style="float: right;" id="pgResultados">
+                        <p:outputLabel value="Fuentes:" class="padding2"/>
+                        <p:inputText readonly="true" value="#{controllerIndicadores.fuentes}"/>
+                        <p:outputLabel value="Usos:" class="padding2"/>
+                        <p:inputText readonly="true" value="#{controllerIndicadores.usos}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+</ui:composition>
+

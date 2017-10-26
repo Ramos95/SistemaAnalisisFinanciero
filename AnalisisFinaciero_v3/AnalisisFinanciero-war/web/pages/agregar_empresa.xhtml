@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form id="formDatosEmpresa">
+            <h1 class="centerText"><p:outputLabel value="NUEVA EMPRESA"/></h1>
+            <p:separator />
+            <br/>
+            <h:panelGrid columns="2" class="centerData">
+                <h:panelGrid columnClasses="rightData padding7">
+                    <p:outputLabel value="Código:"/>
+                    <p:outputLabel value="Nombre Corto:"/>
+                    <p:outputLabel value="Nombre Legal:" />
+                    <p:outputLabel value="Auditor:"/>
+                    <p:outputLabel value="Contador:"/>
+                    <p:outputLabel value="Correo:" /> 
+                    <p:outputLabel value="ISSS:" /> 
+                    <p:outputLabel value="AFP:"/>
+                    <p:outputLabel value="NIT:" />
+                    <p:outputLabel value="NRC:" />
+                    <p:outputLabel value="Representante Legal:" />
+                    <p:outputLabel value="Telefonos:" />
+                    <p:outputLabel value="Dirección:" /> 
+                    <p:outputLabel value="Estado:" />
+                    <p:outputLabel value="Tipo de Empresa:" />
+                </h:panelGrid> 
+                <h:panelGrid columnClasses="padding2">
+                    <p:inputText value="#{controllerEmpresa.count}" disabled="true" required="true" size="40"/>
+                    <p:inputText id="nombreCorto" value="#{controllerEmpresa.registro.nombreCorto}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.nombreLegal}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.auditor}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.contador}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.correo}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.isss}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.afp}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.nit}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.nrc}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.representanteLegal}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.telefonos}" required="true" size="40"/>
+                    <p:inputText value="#{controllerEmpresa.registro.direccion}" required="true" size="40"/>
+                    <p:selectOneRadio value="#{controllerEmpresa.registro.estado}">
+                        <f:selectItem itemLabel="Habilitado" itemValue="true" />
+                        <f:selectItem itemLabel="Deshablitado" itemValue="false" />
+                    </p:selectOneRadio>
+                    <p:selectOneMenu value="#{controllerEmpresa.idUltimo}" required="true" style="width: 90%;">
+                        <f:selectItems value="#{controllerEmpresa.lstTipoEmpresa}" var="tp" itemValue="#{tp.idTipoEmpresa}" itemLabel="#{tp.nombre}" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid class="centerData">
+                <h:commandButton value="Agregar" action="empresas.jsf" actionListener="#{controllerEmpresa.agregarEmpresa}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

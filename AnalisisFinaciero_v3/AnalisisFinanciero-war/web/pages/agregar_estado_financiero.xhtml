@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idEmpresa" value="#{controllerEstadoFinanciero.idEmpresa}"/>
+            <f:viewParam name="idEstadoFinanciero" value="#{controllerEstadoFinanciero.idEstadoFinanciero}"/>
+        </f:metadata>
+        <h:form id="formEstadosFinancieros">
+            <h1 class="centerText"><p:outputLabel value="NUEVO ESTADO FINACIERO"/></h1>
+            <p:separator />
+            <br/>
+            <h:panelGrid columns="2" class="centerData">
+                <h:panelGrid columnClasses="rightData padding8">
+                    <p:outputLabel value="Empresa:" />
+                    <p:outputLabel value="Año:" />
+                </h:panelGrid>
+                <h:panelGrid>
+                    <p:selectOneMenu value="#{controllerEstadoFinanciero.idEmpresa}" required="true">
+                        <f:selectItems value="#{controllerEstadoFinanciero.lstEmpresa}" var="e" itemValue="#{e.idEmpresa}" itemLabel="#{e.nombreCorto}" />
+                    </p:selectOneMenu>
+                    <p:inputText placeholder="Año" required="true" value="#{controllerEstadoFinanciero.fecha}"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid style="text-align: center; margin: 0 auto; font-size: 22px;">
+                <p:outputLabel value="Estados Financieros:"/>
+                <p:outputLabel value="- Balance General"/>
+                <p:outputLabel value="- Estado de Resultados"/>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid columns="2" style="margin: 0 auto">
+                <h:commandButton value="Continuar" action="#{controllerEstadoFinanciero.parametros(0)}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;"/>
+                <p:commandButton value="Cancelar" action="estado_financiero.jsf"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idEmpresa" value="#{controllerEstadoFinanciero.idEmpresa}"/>
+            <f:viewParam name="idEstadoFinanciero" value="#{controllerEstadoFinanciero.idEstadoFinanciero}" />
+            <f:event type="preRenderView" listener="#{controllerCuentaEstadoFinanciero.mostrarParametros(controllerEstadoFinanciero.idEmpresa, controllerEstadoFinanciero.idEstadoFinanciero)}" />
+        </f:metadata>
+        <h:form id="formCuentasEstadoFinanciero">
+            <h1 style="text-align: center"><p:outputLabel value="MODIFICAR CUENTAS DE ESTADOS DE RESULTADOS"/></h1>
+            <p:separator />
+            <br/>
+            <p:outputLabel value="Buscar Cuenta: "/>
+
+            <p:autoComplete id="acCuentas"
+                            value="#{controllerCuentaEstadoFinanciero.registroCuenta}"
+                            completeMethod="#{controllerCuentaEstadoFinanciero.obtenerCuentas}"
+                            var="cuenta"
+                            itemLabel="#{cuenta.idCuentaMayor.nombre} - #{cuenta.nombre}"
+                            itemValue="#{cuenta}"
+                            converter="convertidor"
+                            forceSelection="true"
+                            scrollHeight="350"
+                            placeholder="Ingrese el nombre de la cuenta"
+                            size="75">
+            </p:autoComplete>
+
+            <br/>
+            <h:outputText value="Tipo de Saldo: " />
+            <p:selectOneRadio id="console" value="#{controllerCuentaEstadoFinanciero.tipoSaldo}">
+                <f:selectItem itemLabel="Deudor" itemValue="0" />
+                <f:selectItem itemLabel="Acreedor" itemValue="1" />
+            </p:selectOneRadio>
+
+            <h:outputText value="Saldo de la Cuenta: " />
+            <p:inputText value="#{controllerCuentaEstadoFinanciero.saldo}" />
+            <br/>
+            <h:panelGrid style="margin: 0 auto">
+                <p:commandButton value="Agregar" action="#{controllerCuentaEstadoFinanciero.agregarCuenta()}" update="formCuentasEstadoFinanciero:tabEstados"/>
+            </h:panelGrid>
+            <br/>
+            <p:tabView id="tabEstados" activeIndex="#{controllerCuentaEstadoFinanciero.tabActual}" >
+                <p:tab title="Estado de Resultados">
+                    <p:dataTable value="#{controllerCuentaEstadoFinanciero.lstCuentasEstadoResultados}"
+                                 var="cer" 
+                                 id="tblListaER"
+                                 paginator="true"
+                                 lazy="true"
+                                 rows="7">
+                        <p:column headerText="Cuenta">
+                            <h:outputText value="#{cer.cuenta.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Saldo" >
+                            <h:outputText value="#{cer.saldo}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Balance General">
+                    <p:dataTable value="#{controllerCuentaEstadoFinanciero.lstCuentasBalanceGeneral}"
+                                 var="cbg" 
+                                 id="tblListaBG"
+                                 paginator="true"
+                                 lazy="true"
+                                 rows="6">
+                        <p:column headerText="Cuenta">
+                            <h:outputText value="#{cbg.cuenta.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Saldo" >
+                            <h:outputText value="#{cbg.saldo}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:ajax event="tabChange" listener="#{controllerCuentaEstadoFinanciero.cambiarTab()}" />
+            </p:tabView>
+            <br/>
+            <h:panelGrid style="margin: 0 auto">
+                <h:commandButton value="Guardar" action="#{controllerCuentaEstadoFinanciero.actualizarDatosDetalleEstadoFinanciero()}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h1 class="centerText"><p:outputLabel value="AGREGAR CUENTA"/></h1>
+        <p:separator />
+        <br/>
+        <h:form id="formCuenta">
+            <h:panelGrid id="pgCuentas" columns="2" class="centerData">
+                <h:panelGrid class="rightData" columnClasses="padding">
+                    <p:outputLabel value="Elemento Financiero: "/>
+                    <p:outputLabel value="Agrupación: " />
+                    <p:outputLabel value="Cuenta Mayor: " />
+                    <p:outputLabel value="Código:"/>
+                    <p:outputLabel value="Nombre:"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <p:selectOneMenu id="somElementoFinanciero" value="#{controllerCuenta.idElementoFinanciero}" required="true" >
+                        <f:selectItems value="#{controllerCuenta.lstElementoFinanciero}" var="ef" itemValue="#{ef.idElementoFinanciero}" itemLabel="#{ef.nombre}" />
+                        <p:ajax listener="#{controllerCuenta.cambiarAgrupacion()}" update=":formCuenta:somAgrupacion :formCuenta:somCuentaMayor :formCuenta:itCuenta" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu id="somAgrupacion" value="#{controllerCuenta.idAgrupacion}" required="true">
+                        <f:selectItems value="#{controllerCuenta.lstAgrupacion}" var="a" itemValue="#{a.idAgrupacion}" itemLabel="#{a.nombre}" />
+                        <p:ajax listener="#{controllerCuenta.cambiarCuentaMayor()}" update=":formCuenta:somCuentaMayor :formCuenta:itCuenta" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu id="somCuentaMayor" value="#{controllerCuenta.idCuentaMayor}" required="true">
+                        <f:selectItems value="#{controllerCuenta.lstCuentaMayor}" var="cm" itemValue="#{cm.idCuentaMayor}" itemLabel="#{cm.nombre}" />
+                        <p:ajax listener="#{controllerCuenta.generarCodigo()}" update=":formCuenta:itCuenta" />
+                    </p:selectOneMenu>
+                    <p:inputText id="itCuenta" value="#{controllerCuenta.registroCuenta.idCuenta}" readonly="true"/>                         
+                    <p:inputText value="#{controllerCuenta.registroCuenta.nombre}" required="true"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/>
+            <h:panelGrid class="centerData">
+                <h:commandButton value="Guardar" action="#{controllerCuenta.guardarCuenta()}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

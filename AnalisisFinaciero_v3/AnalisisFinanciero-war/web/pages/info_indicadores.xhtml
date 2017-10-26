@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h1 style="text-align: center"><p:outputLabel value="INFORMACIÓN DE INDICADORES FINANCIEROS"/></h1>
+        <p:separator />
+        <br/>
+        <p:panel header="LIQUIDEZ" collapsed="true" class="centerText"/>
+        <p:dataTable value="#{controllerInfo.razonesLiquidezList}"
+                     var="r" 
+                     id="tblRazonesLiquidez"
+                     rowHover="true">
+            <p:column headerText="Razón" width="20%" style="font-weight: bold;">
+                <h:outputText value="#{r.nombre}"/>
+            </p:column>
+            <p:column headerText="Fórmula">
+                <h:outputText value="#{r.formula}"/>
+            </p:column>
+            <p:column headerText="Significado">
+                <h:outputText value="#{r.significado}"/>
+            </p:column>
+            <p:column headerText="Interpretación" width="30%">
+                <h:outputText value="#{r.interpretacion}"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:panel header="ACTIVIDAD" collapsed="true" class="centerText"/>
+        <p:dataTable value="#{controllerInfo.razonesActividadList}"
+                     var="r" 
+                     id="tblRazonesActividad"
+                     rowHover="true">
+            <p:column headerText="Razón" width="20%" style="font-weight: bold;">
+                <h:outputText value="#{r.nombre}"/>
+            </p:column>
+            <p:column headerText="Fórmula">
+                <h:outputText value="#{r.formula}"/>
+            </p:column>
+            <p:column headerText="Significado">
+                <h:outputText value="#{r.significado}"/>
+            </p:column>
+            <p:column headerText="Interpretación" width="30%">
+                <h:outputText value="#{r.interpretacion}"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:panel header="ENDEUDAMIENTO" collapsed="true" class="centerText"/>
+        <p:dataTable value="#{controllerInfo.razonesEndeudamientoList}"
+                     var="r" 
+                     id="tblRazonesEndeudamiento"
+                     rowHover="true">
+            <p:column headerText="Razón" width="20%" style="font-weight: bold;">
+                <h:outputText value="#{r.nombre}"/>
+            </p:column>
+            <p:column headerText="Fórmula">
+                <h:outputText value="#{r.formula}"/>
+            </p:column>
+            <p:column headerText="Significado">
+                <h:outputText value="#{r.significado}"/>
+            </p:column>
+            <p:column headerText="Interpretación" width="30%">
+                <h:outputText value="#{r.interpretacion}"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:panel header="RENTABILIDAD" collapsed="true" class="centerText"/>
+        <p:dataTable value="#{controllerInfo.razonesRentabilidadList}"
+                     var="r"
+                     id="tblRazonesRentabilidad"
+                     rowHover="true">
+            <p:column headerText="Razón" width="20%" style="font-weight: bold;">
+                <h:outputText value="#{r.nombre}"/>
+            </p:column>
+            <p:column headerText="Fórmula">
+                <h:outputText value="#{r.formula}"/>
+            </p:column>
+            <p:column headerText="Significado">
+                <h:outputText value="#{r.significado}"/>
+            </p:column>
+            <p:column headerText="Interpretación" width="30%">
+                <h:outputText value="#{r.interpretacion}"/>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
+

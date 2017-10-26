@@ -1,0 +1,40 @@
+.sidenav {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #c4c4c4;
+    padding-top: 50px;            
+    right: 25px;
+    border: 2px;
+    border-color: black;
+}
+
+.sidenav a:first-child {
+    padding: 8px 8px 8px 32px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #111;
+    display: block;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #111;
+    display: block;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.icon {
+    padding-right: 5px;
+}

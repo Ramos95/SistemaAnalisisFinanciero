@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/facelets/plantillas/newTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idCuenta" />
+        </f:metadata>
+        <h:form id="formIndicadores">
+            <h1 style="text-align: center"><p:outputLabel value="CATÁLOGO DE CUENTAS"/></h1>
+            <p:separator />
+            <br/>
+            <h:panelGrid columns="2" style="margin: 0 auto">
+                <p:button value="Nuevo" outcome="detalle_cuenta.jsf"/>
+                <h:commandButton value="Editar" action="#{controllerCuenta.establecerParametros()}" class="ui-button ui-button-text ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 4.5px 17.5px;" />
+            </h:panelGrid>
+            <br/>
+            <p:dataTable value="#{controllerCuenta.lstCuentas}"
+                         var="c" 
+                         id="tblIndicadores"
+                         paginator="true"
+                         selectionMode="single"
+                         selection="#{controllerCuenta.seleccionado}"
+                         lazy="true"
+                         rows="7"
+                         rowKey="#{c.idCuenta}">
+                <p:column headerText="Código" width="10%">
+                    <h:outputText value="#{c.idCuenta}"/>
+                </p:column>
+                <p:column headerText="Tipo de Cuenta" >
+                    <h:outputText value="#{c.idCuentaMayor.idAgrupacion.nombre}"/>
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{c.nombre}"/>
+                </p:column>
+                <p:column headerText="Estado" width="15%">
+                    <h:outputText value="#{c.estado ? 'Activa': 'Inactiva'}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

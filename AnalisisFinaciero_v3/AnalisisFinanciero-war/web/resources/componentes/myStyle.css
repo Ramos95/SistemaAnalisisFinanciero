@@ -1,0 +1,72 @@
+/*
+.selected {
+    background-color:#8bb8df;
+}
+
+.centerData, th, td {
+    text-align: center;
+    margin: 0 auto;
+}
+*/
+.backImage {
+    background-image: url("../img/bg-1.jpg");
+}        
+
+.centerData {
+    display: block;
+    text-align: center;
+}
+
+.rightData {
+    text-align: right;
+}
+
+.leftData {
+    text-align: left;
+}
+
+.panelData {
+    margin: 0 auto;
+    text-align: right;
+}
+
+.columns {
+    padding: 8px;
+}
+/*
+.well-md {
+        color: #fff;
+    background: #286090;
+}
+
+.pad {
+        padding-left: 300px;
+        padding-right: 300px;
+}
+
+.pad2 {
+        padding: 15px;
+}
+
+.pad3 {
+        padding: 50px;
+        padding-top: 5px;
+}
+
+.but {
+        background: #8bb8df;
+        border: #4072a1;
+        border-style: solid;
+        border-width: 1px;
+}
+
+.head {
+        font-size: large;
+        font-weight: bold;
+}
+
+.bod {
+        font-size: medium;
+        font-style: italic;	
+}
+*/
