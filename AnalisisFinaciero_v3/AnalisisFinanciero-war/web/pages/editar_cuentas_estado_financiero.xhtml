@@ -10,7 +10,8 @@
         <f:metadata>
             <f:viewParam name="idEmpresa" value="#{controllerEstadoFinanciero.idEmpresa}"/>
             <f:viewParam name="idEstadoFinanciero" value="#{controllerEstadoFinanciero.idEstadoFinanciero}" />
-            <f:event type="preRenderView" listener="#{controllerCuentaEstadoFinanciero.mostrarParametros(controllerEstadoFinanciero.idEmpresa, controllerEstadoFinanciero.idEstadoFinanciero)}" />
+            <f:viewParam name="anioEstadoFinanciero" value="#{controllerEstadoFinanciero.anioEstadoFinanciero}" />
+            <f:event type="preRenderView" listener="#{controllerCuentaEstadoFinanciero.mostrarParametros(controllerEstadoFinanciero.idEmpresa, controllerEstadoFinanciero.idEstadoFinanciero, controllerEstadoFinanciero.anioEstadoFinanciero)}" />
         </f:metadata>
         <h:form id="formCuentasEstadoFinanciero">
             <h1 style="text-align: center"><p:outputLabel value="MODIFICAR CUENTAS DE ESTADOS DE RESULTADOS"/></h1>
@@ -46,6 +47,7 @@
             </h:panelGrid>
             <br/>
             <p:tabView id="tabEstados" activeIndex="#{controllerCuentaEstadoFinanciero.tabActual}" >
+
                 <p:tab title="Estado de Resultados">
                     <p:dataTable value="#{controllerCuentaEstadoFinanciero.lstCuentasEstadoResultados}"
                                  var="cer" 
@@ -62,6 +64,16 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Balance General">
+                    <h:panelGrid columns="6" style="margin-bottom: 1%">
+                    <p:outputLabel value="Activos Totales: "/>
+                    <p:inputText value="#{controllerCuentaEstadoFinanciero.activoTotal()}"/>
+                    <p:outputLabel value="Pasivos Totales: "/>
+                    <p:inputText value="#{controllerCuentaEstadoFinanciero.pasivoTotal()}"/>
+                    <p:outputLabel value="Patrimonio: " />
+                    <p:inputText value="#{controllerCuentaEstadoFinanciero.patrimonioTotal()}"/>
+                    <p:outputLabel value="pasivo + Patrimonio:"/>
+                    <p:inputText value="#{controllerCuentaEstadoFinanciero.patrimonioMaspasivo()}"/>
+                    </h:panelGrid>
                     <p:dataTable value="#{controllerCuentaEstadoFinanciero.lstCuentasBalanceGeneral}"
                                  var="cbg" 
                                  id="tblListaBG"

@@ -29,6 +29,7 @@ import ues.anf135.datos.acceso.ElementoFinancieroFacadeLocal;
 import ues.anf135.datos.acceso.EmpresaFacadeLocal;
 import ues.anf135.datos.acceso.EstadoFinancieroFacadeLocal;
 import ues.anf135.datos.acceso.TipoEstadoFinancieroFacadeLocal;
+import ues.anf135.datos.calculo.CalculosFacadeLocal;
 import ues.anf135.datos.definiciones.Agrupacion;
 import ues.anf135.datos.definiciones.Cuenta;
 import ues.anf135.datos.definiciones.DetalleEstadoFinanciero;
@@ -67,6 +68,9 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
     @EJB
     CuentaFacadeLocal cuentaFacade;
 
+    @EJB
+    CalculosFacadeLocal calculosFacade;
+
     private List<ElementoFinanciero> lstElementoFinanciero;
     private List<Agrupacion> lstAgrupacion;
     private List<Cuenta> lstCuenta;
@@ -78,9 +82,13 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
     private Cuenta registroCuenta;
     private int idEmpresa;
     private int idEstadoFinanciero;
+    private int anioEstadoFinaciero;
     private int tipoSaldo = 0;
     private double saldo;
     private String nombreCuenta;
+    private double activosTotales;
+    private double pasivoTotales;
+    private double patrimonio;
 
     private Empresa empresa;
     private int idElementoFinanciero = 4;
@@ -131,11 +139,13 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
         }
     }
 
-    public void mostrarParametros(int idEmpresa, int idEstadoFinanciero) {
+    public void mostrarParametros(int idEmpresa, int idEstadoFinanciero, int anioEstadoFinanciero) {
         setIdEmpresa(idEmpresa);
         setIdEstadoFinanciero(idEstadoFinanciero);
+        setAnioEstadoFinaciero(anioEstadoFinanciero);
         System.out.println("est finan: " + this.idEstadoFinanciero);
         System.out.println("empresa: " + this.idEmpresa);
+        System.err.println("pppppanio estado financiero: " + anioEstadoFinaciero);
 
         this.cargarListasEstadosFinancieros();
     }
@@ -145,6 +155,7 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
             setLstCuenta(cuentaFacade.obtenerPorEstadoResultado());
         } else {
             setLstCuenta(cuentaFacade.obtenerPorBalanceGeneral());
+
         }
     }
 
@@ -200,10 +211,12 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
     }
 
     public void mostrarRegistroCuenta() {
+
         System.out.println("----> registro cuenta: " + registroCuenta.getNombre());
     }
 
     public void cambiarElementosFinancieros() {
+
         switch (tabActual) {
             case 0:
                 setLstElementoFinanciero(elementoFinancieroFacade.obtenerPorEstadoResultados());
@@ -220,6 +233,30 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
                 break;
         }
         cambiarAgrupacion();
+    }
+
+    // aqui llamo los totales de cada rubro
+    public double activoTotal() {
+        System.out.println("estoy en activoTotal" + anioEstadoFinaciero + " " + idEmpresa);
+        activosTotales = calculosFacade.calcularActivoTotal(anioEstadoFinaciero, idEmpresa);
+
+        return activosTotales;
+    }
+
+    public double pasivoTotal() {
+        pasivoTotales = calculosFacade.calcularPasivoTotal(anioEstadoFinaciero, idEmpresa);
+        return pasivoTotales;
+    }
+
+    public double patrimonioTotal() {
+        patrimonio = calculosFacade.calcularPatrimonio(anioEstadoFinaciero, idEmpresa);
+        return patrimonio;
+    }
+
+    public double patrimonioMaspasivo() {
+        double suma = pasivoTotal() + patrimonioTotal();
+
+        return suma;
     }
 
     public void cambiarAgrupacion() {
@@ -657,6 +694,38 @@ public class ControllerCuentaEstadoFinanciero extends DefaultGenerator<EstadoFin
      */
     public void setIdEstadoFinanciero(int idEstadoFinanciero) {
         this.idEstadoFinanciero = idEstadoFinanciero;
+    }
+
+    public double getTotales() {
+        return activosTotales;
+    }
+
+    public void setTotales(double totales) {
+        this.activosTotales = totales;
+    }
+
+    public int getAnioEstadoFinaciero() {
+        return anioEstadoFinaciero;
+    }
+
+    public void setAnioEstadoFinaciero(int anioEstadoFinaciero) {
+        this.anioEstadoFinaciero = anioEstadoFinaciero;
+    }
+
+    public double getPasivoTotales() {
+        return pasivoTotales;
+    }
+
+    public void setPasivoTotales(double pasivoTotales) {
+        this.pasivoTotales = pasivoTotales;
+    }
+
+    public double getPatrimonio() {
+        return patrimonio;
+    }
+
+    public void setPatrimonio(double patrimonio) {
+        this.patrimonio = patrimonio;
     }
 
 }

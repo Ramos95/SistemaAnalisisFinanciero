@@ -10,7 +10,8 @@
         <f:metadata>
             <f:viewParam name="idEmpresa" value="#{controllerEstadoFinanciero.idEmpresa}"/>
             <f:viewParam name="idEstadoFinanciero" value="#{controllerEstadoFinanciero.idEstadoFinanciero}"/>
-            <f:event type="preRenderView" listener="#{controllerCuentaEstadoFinanciero.mostrarParametros(controllerEstadoFinanciero.idEmpresa, controllerEstadoFinanciero.idEstadoFinanciero)}" />
+            <f:event type="preRenderView" listener="#{controllerCuentaEstadoFinanciero.mostrarParametros(controllerEstadoFinanciero.idEmpresa,
+                                                      controllerEstadoFinanciero.idEstadoFinanciero,controllerEstadoFinanciero.anioEstadoFinanciero)}" />
         </f:metadata>
         <h:form id="formCuentasEstadoFinanciero">
             <h1 style="text-align: center"><p:outputLabel value="AGREGAR CUENTA A ESTADO FINANCIERO"/></h1>
