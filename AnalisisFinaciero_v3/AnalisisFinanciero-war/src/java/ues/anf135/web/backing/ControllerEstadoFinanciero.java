@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -52,7 +53,8 @@ public class ControllerEstadoFinanciero extends DefaultGenerator<EstadoFinancier
 
     private int idEmpresa;
     private int idEstadoFinanciero;
-
+    private int anioEstadoFinanciero;
+    
     private String fecha;
 
     private EstadoFinanciero estadoFinanciero;
@@ -116,12 +118,18 @@ public class ControllerEstadoFinanciero extends DefaultGenerator<EstadoFinancier
             dir = "cuentas_estado_financiero.jsf?faces-redirect=true&includeViewParams=true";
         } else { //esto es editar
             this.idEstadoFinanciero = this.registro.getEstadoFinancieroPK().getIdEstadoFinanciero();
+            
             this.idEmpresa = this.registro.getEstadoFinancieroPK().getIdEmpresa();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(this.registro.getFechaDesde());
+            this.anioEstadoFinanciero = calendar.get(Calendar.YEAR);
+            
             dir = "editar_cuentas_estado_financiero.jsf?faces-redirect=true&includeViewParams=true";
         }
 
         System.out.println("estado finan: " + this.idEstadoFinanciero);
         System.out.println("empresa: " + this.idEmpresa);
+        System.out.println("??anio estado finan: " + this.anioEstadoFinanciero);
         return dir;
     }
 
@@ -306,5 +314,15 @@ public class ControllerEstadoFinanciero extends DefaultGenerator<EstadoFinancier
     public void setIdEstadoFinanciero(int idEstadoFinanciero) {
         this.idEstadoFinanciero = idEstadoFinanciero;
     }
+
+    public int getAnioEstadoFinanciero() {
+        return anioEstadoFinanciero;
+    }
+
+    public void setAnioEstadoFinanciero(int anioEstadoFinanciero) {
+        this.anioEstadoFinanciero = anioEstadoFinanciero;
+    }
+    
+    
 
 }
